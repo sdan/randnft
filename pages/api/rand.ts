@@ -1,11 +1,16 @@
 import { Alchemy, Network } from "alchemy-sdk";
-import { NextApiRequest, NextApiResponse } from "next";
 
-const config = {
+export const config = {
+  api: {
+      responseLimit: false,
+  },
+}
+
+const alchemyConfig = {
     apiKey: process.env.ALCHEMY_API_KEY,
     network: Network.ETH_MAINNET,
   };
-  const alchemy = new Alchemy(config);
+  const alchemy = new Alchemy(alchemyConfig);
 
 
 export default async function handler(req: any, res: any) {
@@ -47,7 +52,7 @@ if(imgdata.includes("ipfs://")){
   res.end(base64, 'Base64');
 } else {
   const imageData = await fetch(imgdata);
-  console.log('imageData',imageData);
+  // console.log('imageData',imageData);
 
 
     const arrayBuffer = await imageData.arrayBuffer();
@@ -55,7 +60,7 @@ if(imgdata.includes("ipfs://")){
     const buffer = Buffer.from(arrayBuffer);
     const base64 = buffer.toString("base64");
 
-    console.log('base64',base64);
+    // console.log('base64',base64);
 
     // Return image object
     res.writeHead(200, {'Content-Type': 'image/png'})
