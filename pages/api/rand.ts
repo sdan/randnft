@@ -62,6 +62,5 @@ if(imgdata.includes("ipfs://")){
     res.end(base64, 'Base64');
 }
 
-res.status(500).json({ error: "Something went wrong" });
     }
 
